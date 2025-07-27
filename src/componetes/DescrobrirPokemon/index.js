@@ -153,6 +153,7 @@ const DescribrirPokemon = () => {
 
             {pokemonAleatorio && (
               <>
+                <p><strong>Tentativas:</strong> {tentativas} / 3</p>
                 {correto ? (
                   <Link to={`/pokemon/${pokemonAleatorio.name}`} className="pokemon_link">
                     <PokemonImage data={pokemonAleatorio} className="pokemon_img" />
@@ -178,7 +179,6 @@ const DescribrirPokemon = () => {
                 )}
 
                 <p><strong>N°:</strong> {correto || bloqueado ? pokemonAleatorio.id : "???"}</p>
-                <p><strong>Tentativas:</strong> {tentativas} / 3</p>
 
                 {nivelDica > 0 && (
                   <p className="dica_texto">Dica: {obterDicaAtual()}</p>
