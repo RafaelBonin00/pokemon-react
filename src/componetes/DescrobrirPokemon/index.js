@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useApi from "../../services/useApi";
 import PokemonImage from "../PokemonImage";
-import "./style.css"
+import "./style.css";
 
 const geracoes = {
   gen1: { min: 1, max: 151, label: "Geração 1 (1-151)" },
@@ -17,10 +17,7 @@ const geracoes = {
 };
 
 const getRandomIdFromSelectedGens = (selectedGens) => {
-  if (selectedGens.length === 0) {
-    selectedGens = Object.keys(geracoes);
-  }
-
+  if (selectedGens.length === 0) selectedGens = Object.keys(geracoes);
   let todosIds = [];
 
   selectedGens.forEach((genKey) => {
@@ -35,24 +32,22 @@ const getRandomIdFromSelectedGens = (selectedGens) => {
 };
 
 const DescribrirPokemon = () => {
-  const [selectedGenerations, setSelectedGenerations] = useState(["gen1"]); // Geração 1 padrão
+  const [selectedGenerations, setSelectedGenerations] = useState(["gen1"]);
   const [pokemonId, setPokemonId] = useState(getRandomIdFromSelectedGens(["gen1"]));
   const [inputValor, setInputValor] = useState("");
   const [correto, setCorreto] = useState(false);
   const [mostrarMensagem, setMostrarMensagem] = useState(false);
+  const [tentativas, setTentativas] = useState(0);
+  const [nivelDica, setNivelDica] = useState(0);
+  const [indicesRevelados, setIndicesRevelados] = useState(new Set());
+  const [bloqueado, setBloqueado] = useState(false);
 
   const { data: pokemonAleatorio } = useApi(`/pokemon/${pokemonId}`);
 
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
     setSelectedGenerations((prev) => {
-      if (checked) {
-        // adiciona
-        return [...prev, value];
-      } else {
-        // remove
-        return prev.filter((gen) => gen !== value);
-      }
+      return checked ? [...prev, value] : prev.filter((gen) => gen !== value);
     });
   };
 
@@ -62,17 +57,60 @@ const DescribrirPokemon = () => {
     setInputValor("");
     setCorreto(false);
     setMostrarMensagem(false);
+    setTentativas(0);
+    setNivelDica(0);
+    setIndicesRevelados(new Set());
+    setBloqueado(false);
+  };
+
+  const gerarDica = (nome, indices) => {
+    const letras = nome.split("");
+    return letras
+      .map((letra, idx) => (indices.has(idx) ? letra : "_"))
+      .join(" ");
+  };
+
+  const obterDicaAtual = () => {
+    if (!pokemonAleatorio) return "";
+    return gerarDica(pokemonAleatorio.name.toLowerCase(), indicesRevelados);
+  };
+
+  const pedirNovaDica = () => {
+    if (!pokemonAleatorio || nivelDica >= 3) return;
+
+    const nome = pokemonAleatorio.name.toLowerCase();
+    const porcentagens = [10, 30, 50];
+    const novaPorcentagem = porcentagens[nivelDica];
+    const totalParaMostrar = Math.ceil(nome.length * (novaPorcentagem / 100));
+
+    const novosIndices = new Set(indicesRevelados);
+    while (novosIndices.size < totalParaMostrar) {
+      const randomIndex = Math.floor(Math.random() * nome.length);
+      novosIndices.add(randomIndex);
+    }
+
+    setIndicesRevelados(novosIndices);
+    setNivelDica(nivelDica + 1);
   };
 
   const handleChange = (e) => {
-    const valor = e.target.value;
-    setInputValor(valor);
+    setInputValor(e.target.value);
+  };
 
-    if (pokemonAleatorio) {
-      const ehCorreto = pokemonAleatorio.name.toLowerCase() === valor.toLowerCase();
+  const verificarResposta = () => {
+    if (!pokemonAleatorio || bloqueado || inputValor.trim() === "") return;
 
-      if (ehCorreto && !correto) {
-        setCorreto(true);
+    const ehCorreto = pokemonAleatorio.name.toLowerCase() === inputValor.trim().toLowerCase();
+
+    if (ehCorreto) {
+      setCorreto(true);
+      setMostrarMensagem(true);
+      setBloqueado(true);
+    } else {
+      const novaTentativa = tentativas + 1;
+      setTentativas(novaTentativa);
+      if (novaTentativa >= 3) {
+        setBloqueado(true);
         setMostrarMensagem(true);
       }
     }
@@ -80,61 +118,87 @@ const DescribrirPokemon = () => {
 
   return (
     <section className="pokemon_aleatorio_section">
-    <h2>Quem é esse Pokémon?</h2>
-    <div className="container_horizontal">
+      <h2>Quem é esse Pokémon?</h2>
+      <div className="container_horizontal">
         <fieldset className="generations_fieldset">
-        <legend>Escolha a(s) geração(ões):</legend>
-        {Object.entries(geracoes).map(([key, { label }]) => (
+          <legend>Escolha a(s) geração(ões):</legend>
+          {Object.entries(geracoes).map(([key, { label }]) => (
             <label key={key} className="generation_label">
-            <input
+              <input
                 type="checkbox"
                 value={key}
                 checked={selectedGenerations.includes(key)}
                 onChange={handleCheckboxChange}
-            />
-            {label}
+              />
+              {label}
             </label>
-        ))}
+          ))}
         </fieldset>
 
         <div className="pokemon_visualizacao_linha">
-        <div className="pokemon_card principal">
+          <div className="pokemon_card principal">
             <input
-            value={inputValor}
-            onChange={handleChange}
-            placeholder="Digite o nome do Pokémon"
+              value={inputValor}
+              onChange={handleChange}
+              placeholder="Digite o nome do Pokémon"
+              disabled={bloqueado}
             />
 
+            <button
+              onClick={verificarResposta}
+              disabled={bloqueado || inputValor.trim() === ""}
+            >
+              Verificar
+            </button>
+
             {pokemonAleatorio && (
-            <>
+              <>
                 {correto ? (
-                <Link to={`/pokemon/${pokemonAleatorio.name}`} className="pokemon_link">
+                  <Link to={`/pokemon/${pokemonAleatorio.name}`} className="pokemon_link">
                     <PokemonImage data={pokemonAleatorio} className="pokemon_img" />
-                </Link>
+                  </Link>
                 ) : (
-                <div className="pokemon_img_disabled">
+                  <div className="pokemon_img_disabled">
                     <PokemonImage data={pokemonAleatorio} className="pokemon_img sombra" />
-                </div>
+                  </div>
                 )}
 
-                <h3 className="pokemon_name">{correto ? pokemonAleatorio.name : "???"}</h3>
+                <h3 className="pokemon_name">
+                  {correto || bloqueado ? pokemonAleatorio.name : "???"}
+                </h3>
 
-                {mostrarMensagem && <p className="acerto_mensagem">🎉 Parabéns! Você acertou!</p>}
+                {mostrarMensagem && correto && (
+                  <p className="acerto_mensagem">🎉 Parabéns! Você acertou!</p>
+                )}
 
-                <p>
-                <strong>N°:</strong> {correto ? pokemonAleatorio.id : "???"}
-                </p>
-            </>
+                {mostrarMensagem && !correto && (
+                  <p className="erro_mensagem">
+                    ❌ Limite de tentativas atingido! Era: <strong>{pokemonAleatorio.name}</strong>
+                  </p>
+                )}
+
+                <p><strong>N°:</strong> {correto || bloqueado ? pokemonAleatorio.id : "???"}</p>
+                <p><strong>Tentativas:</strong> {tentativas} / 3</p>
+
+                {nivelDica > 0 && (
+                  <p className="dica_texto">Dica: {obterDicaAtual()}</p>
+                )}
+
+                {nivelDica < 3 && !bloqueado && (
+                  <button onClick={pedirNovaDica}>
+                    Dica {nivelDica + 1}
+                  </button>
+                )}
+              </>
             )}
 
             <button onClick={sortearOutroPokemon} className="btn_novo_pokemon">
-            Sortear outro Pokémon
+              Sortear outro Pokémon
             </button>
+          </div>
         </div>
-        </div>
-    </div>
+      </div>
     </section>
-
   );
 };
 

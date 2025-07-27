@@ -1,3 +1,4 @@
+/* ✅ Mensagem de acerto */
 .acerto_mensagem {
   color: #4caf50;
   font-weight: bold;
@@ -6,6 +7,16 @@
   animation: fadeInScale 0.3s ease-in-out;
 }
 
+/* ❌ Mensagem de erro */
+.erro_mensagem {
+  color: #f44336;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 10px 0 16px;
+  animation: fadeInScale 0.3s ease-in-out;
+}
+
+/* ✨ Animação leve */
 @keyframes fadeInScale {
   from {
     opacity: 0;
@@ -17,6 +28,7 @@
   }
 }
 
+/* 🕶️ Imagem oculta com sombra */
 .pokemon_img_disabled {
   pointer-events: none;
 }
@@ -25,6 +37,7 @@
   filter: brightness(0) saturate(100%) invert(10%);
 }
 
+/* 🔢 Campo de seleção de gerações */
 .generations_fieldset {
   border: 2px solid #3B4CCA;
   border-radius: 24px;
@@ -33,17 +46,15 @@
   box-shadow: 0 3px 8px rgba(59, 76, 202, 0.2);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #333;
-
   display: flex;
   flex-wrap: wrap;
-  gap: 12px; /* espaço entre os checkboxes */
-
-  max-width: none; /* remove limite anterior */
-  margin: 0;       /* remove margem para layout flex */
+  gap: 12px;
+  max-width: none;
+  margin: 0;
 }
 
 .generations_fieldset legend {
-  flex-basis: 100%; /* Faz a legenda ocupar toda a largura */
+  flex-basis: 100%;
   font-weight: 700;
   color: #3B4CCA;
   font-size: 1.1rem;
@@ -58,42 +69,98 @@
   user-select: none;
   font-size: 1rem;
   color: #1a237e;
-
-  gap: 6px;          /* espaçamento entre checkbox e texto */
-  min-width: 140px;  /* largura mínima para melhor alinhamento */
+  gap: 6px;
+  min-width: 140px;
 }
 
-/* Container para deixar checkbox e descrição lado a lado e mesmo tamanho */
+/* 📦 Layout geral horizontal */
 .container_horizontal {
   display: flex;
-  gap: 32px;              /* espaço entre as duas colunas */
+  gap: 32px;
   align-items: flex-start;
-  max-width: 720px;       /* largura máxima total do container */
-  margin: 0 auto;         /* centraliza horizontalmente */
-  padding: 0 24px;        /* espaçamento igual nas laterais */
-  box-sizing: border-box; /* inclui padding na largura total */
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
 }
 
-/* Ambos lados ocupam metade do espaço disponível */
 .generations_fieldset,
 .pokemon_visualizacao_linha {
   flex: 1;
-  min-width: 0; /* evita overflow em flexbox */
+  min-width: 0;
 }
 
-/* Estilização para o botão */
-.btn_novo_pokemon {
-  margin-top: 16px;
-  padding: 8px 16px;
-  background-color: #3b4cca;
+/* 📋 Card principal do Pokémon */
+.pokemon_card.principal {
+  background: #f5f7fa;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* 🔤 Input */
+.pokemon_card input {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* 🎯 Botões gerais (inclui Verificar e dicas) */
+.pokemon_card button {
+  margin: 6px 0;
+  padding: 8px 14px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #4a90e2;
   color: white;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  border-radius: 6px;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
+  display: block;
+  width: 100%;
+}
+
+.pokemon_card button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pokemon_card button:hover:not(:disabled) {
+  background-color: #357ab7;
+}
+
+/* 🔄 Botão de novo sorteio */
+.btn_novo_pokemon {
+  margin-top: 16px;
+  background-color: #3b4cca;
 }
 
 .btn_novo_pokemon:hover {
   background-color: #2a37a0;
+}
+
+/* 💡 Estilo das dicas */
+.dica_texto {
+  font-family: monospace;
+  font-size: 1.2rem;
+  margin: 12px 0;
+  color: #333;
+  background-color: #e0e7ff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* 🧾 Nome do Pokémon */
+.pokemon_name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-top: 12px;
+  text-transform: capitalize;
 }
