@@ -1,0 +1,58 @@
+.filtros_container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filtro_item {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+}
+
+.input_com_botao {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.input_com_botao input,
+.input_com_botao select {
+  padding: 6px 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  flex: 1;
+}
+
+.btn-limpar-filtros {
+  margin: 0 2%;
+  border: 1px solid #ccc;
+  background: #eee;
+  color: #666;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  user-select: none;
+
+
+}
+
+.btn-limpar-filtros:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.btn-limpar-filtros:not(:disabled) {
+  background-color: #ff7b7b;
+   border: 1px solid #000000;
+}
+
+.btn-limpar-filtros:not(:disabled):hover {
+  background-color: #ff3030;
+  color: #000;
+}

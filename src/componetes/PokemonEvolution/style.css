@@ -1,0 +1,78 @@
+.evolution-container {
+  background: #444;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  font-family: sans-serif;
+  max-width: 900px;           /* limite de largura */
+  margin: 30px auto;          /* centraliza na página */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.evolution-container h2 {
+  margin-bottom: 20px;
+}
+
+.evolution-chain {
+  display: flex;
+  align-items: center;
+  justify-content: center;    /* centraliza horizontalmente */
+  gap: 20px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.pokemon-card {
+  background: #555;
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+  width: 150px;
+  min-width: 150px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.pokemon-card img {
+  width: 100px;
+  height: 100px;
+}
+
+.pokemon-card h4 {
+  margin: 10px 0 5px;
+  font-size: 1em;
+  color: white;
+}
+
+.types {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.type-badge {
+  color: white;
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-size: 0.8em;
+}
+
+/* Tipos */
+.type-badge.grass {
+  background-color: #9bcc50;
+}
+
+.type-badge.poison {
+  background-color: #b97fc9;
+}
+
+.arrow {
+  font-size: 2em;
+  color: white;
+}
+
+.error-msg {
+  color: red;
+  font-weight: bold;
+}

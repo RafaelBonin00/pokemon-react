@@ -1,0 +1,69 @@
+/* Container principal dos cards de Pokémon */
+.pokemon_div {
+  border: solid 2px #d0d0d0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 16px;
+  background-color: #e2e2e2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin: 3%;
+  border-radius: 40px;
+}
+
+/* Estilo do card individual */
+.pokemon_item {
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  width: 180px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, border-color 0.3s, background-color 0.3s;
+}
+
+.pokemon_item:hover {
+  background-color: #ffffff;
+  transform: scale(1.1);
+  border-color: #3B4CCA; 
+}
+
+/* Título do Pokémon */
+.pokemon_item h2 {
+  font-size: 1.2rem;
+  margin: 0 0 8px 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-height: 3rem;
+  line-height: 1.5rem;
+  text-align: center;
+  color: black;
+}
+
+/* Link que envolve o card */
+.pokemon_link {
+  text-decoration: none;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.pokemon_link:hover h2 p{
+  color: #3B4CCA;
+}
+
+/* Imagem do Pokémon */
+.pokemon_item img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 12px auto;
+}
+
+/* Círculo de fundo ou detalhe visual */
+.bola_escura {
+  background-color: #d5d5d5; /* tom cinza médio */
+  border-radius: 300px;
+}

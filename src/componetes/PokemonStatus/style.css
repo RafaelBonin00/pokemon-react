@@ -1,0 +1,53 @@
+.status-container {
+  background: #f7f7f7;
+  border: 2px solid #ddd;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 24px auto;
+  max-width: 500px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.status-container h3 {
+  color: #3B4CCA;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.status-list {
+  list-style: none;
+  padding: 0;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.status-name {
+  width: 100px;
+  font-weight: bold;
+  color: #444;
+}
+
+.status-bar-container {
+  flex: 1;
+  height: 14px;
+  background: #ddd;
+  border-radius: 10px;
+  margin: 0 10px;
+  overflow: hidden;
+}
+
+.status-bar {
+  height: 100%;
+  background-color: #3B4CCA;
+  transition: width 0.4s ease;
+}
+
+.status-value {
+  width: 40px;
+  text-align: right;
+  color: #444;
+}

@@ -1,38 +1,37 @@
-.App {
-  text-align: center;
+html, body {
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  /* Fundo metálico escovado em diagonal */
+  background: 
+    repeating-linear-gradient(
+      45deg,             /* ângulo da diagonal */
+      #cfcfcf,           /* cor base clara */
+      #cfcfcf 10px,
+      #b0b0b0 10px,
+      #b0b0b0 20px
+    );
+
+  background-attachment: fixed;
+  background-repeat: repeat;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Se quiser uma leve animação de brilho, adicione isso */
+@keyframes metalShine {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* Container principal */
+#root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding-top: 80px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Container de pokémons */

@@ -1,0 +1,49 @@
+.HeaderContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* fica acima dos outros elementos */
+  
+  /* mantém o restante do estilo que você já tem */
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 14px 0;
+  background: linear-gradient(135deg, #3B4CCA, #2A5DB0);
+  border-bottom: 2px solid #254a9d;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+
+.links_navegacao {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #ffffff; /* branco para contraste */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.links_navegacao:hover {
+  background-color: #d1d9ff; /* azul clarinho no hover */
+  color: #1a2e7d;           /* azul escuro no texto hover */
+  text-shadow: none;
+  cursor: pointer;
+}
+
+.pokeball {
+  font-size: 1.5rem;
+  color: #ff0202;  /* mantém a pokeball vermelha */
+  transition: color 0.3s ease;
+}
+
+.links_navegacao:hover .pokeball {
+  color: #b30000; /* vermelho escuro no hover */
+}

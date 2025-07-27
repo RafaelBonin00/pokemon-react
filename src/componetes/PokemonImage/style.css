@@ -1,0 +1,41 @@
+.pokemon_item {
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  padding: 16px;
+  width: 240px;
+  margin: 16px auto;
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.pokemon_item:hover {
+  transform: scale(1.05);
+  border-color: #3B4CCA;
+}
+
+.pokemon_item h2 {
+  font-size: 1.5rem;
+  color: #3B4CCA;
+  margin-bottom: 12px;
+}
+
+.pokemon_item p {
+  font-size: 1rem;
+  color: #555;
+}
+
+.bola_escura {
+  background-color: #d5d5d5;
+  border-radius: 50%;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.pokemon_item img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

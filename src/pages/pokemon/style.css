@@ -1,0 +1,14 @@
+.pokemon-top-info {
+  display: flex;
+  flex-wrap: wrap; /* Quebra em colunas no mobile */
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  margin: 32px auto;
+  padding: 16px;
+  max-width: 1200px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}

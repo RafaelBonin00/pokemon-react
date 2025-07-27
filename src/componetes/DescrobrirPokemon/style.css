@@ -1,0 +1,99 @@
+.acerto_mensagem {
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin: 10px 0 16px;
+  animation: fadeInScale 0.3s ease-in-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.pokemon_img_disabled {
+  pointer-events: none;
+}
+
+.sombra {
+  filter: brightness(0) saturate(100%) invert(10%);
+}
+
+.generations_fieldset {
+  border: 2px solid #3B4CCA;
+  border-radius: 24px;
+  padding: 16px 24px;
+  background-color: white;
+  box-shadow: 0 3px 8px rgba(59, 76, 202, 0.2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px; /* espaço entre os checkboxes */
+
+  max-width: none; /* remove limite anterior */
+  margin: 0;       /* remove margem para layout flex */
+}
+
+.generations_fieldset legend {
+  flex-basis: 100%; /* Faz a legenda ocupar toda a largura */
+  font-weight: 700;
+  color: #3B4CCA;
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+
+.generation_label {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  font-size: 1rem;
+  color: #1a237e;
+
+  gap: 6px;          /* espaçamento entre checkbox e texto */
+  min-width: 140px;  /* largura mínima para melhor alinhamento */
+}
+
+/* Container para deixar checkbox e descrição lado a lado e mesmo tamanho */
+.container_horizontal {
+  display: flex;
+  gap: 32px;              /* espaço entre as duas colunas */
+  align-items: flex-start;
+  max-width: 720px;       /* largura máxima total do container */
+  margin: 0 auto;         /* centraliza horizontalmente */
+  padding: 0 24px;        /* espaçamento igual nas laterais */
+  box-sizing: border-box; /* inclui padding na largura total */
+}
+
+/* Ambos lados ocupam metade do espaço disponível */
+.generations_fieldset,
+.pokemon_visualizacao_linha {
+  flex: 1;
+  min-width: 0; /* evita overflow em flexbox */
+}
+
+/* Estilização para o botão */
+.btn_novo_pokemon {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #3b4cca;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn_novo_pokemon:hover {
+  background-color: #2a37a0;
+}

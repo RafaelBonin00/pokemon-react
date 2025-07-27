@@ -1,0 +1,76 @@
+.itens_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 0 3%;
+}
+
+.filtros_container{
+    align-items: center;
+}
+
+.item_card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 150px;
+  text-align: center;
+  border-radius: 8px;
+  background: #f9f9f9;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.item_card:hover {
+  box-shadow: 0 0 10px rgba(59, 76, 202, 0.3);
+}
+
+.item_card img {
+  max-height: 50px;
+}
+
+.paginacao {
+  margin: 20px auto;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.paginacao button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3B4CCA;
+  color: white;
+  cursor: pointer;
+}
+
+.paginacao button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.detalhes_item {
+  margin: 30px auto;
+  padding: 20px;
+  max-width: 500px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fffbe6;
+  text-align: center;
+}
+
+.btn-limpar-filtros:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+.btn-limpar-filtros:not(:disabled) {
+  background-color: #ff7b7b;
+   border: 1px solid #000000;
+}
+
+.btn-limpar-filtros:not(:disabled):hover {
+  background-color: #ff3030;
+  color: #000;
+}
