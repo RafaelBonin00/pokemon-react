@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useApi from "../../services/useApi";
-import PokemonImage from "../PokemonImage";
 import "./style.css";
 
 const geracoes = {
@@ -31,6 +30,30 @@ const getRandomIdFromSelectedGens = (selectedGens) => {
   return todosIds[randomIndex];
 };
 
+// Lista de possíveis caminhos de sprites
+const spritePaths = [
+  "sprites.front_default",
+  "sprites.back_default",
+  "sprites.other.dream_world.front_default",
+  "sprites.other.home.front_default",
+  "sprites.other.official-artwork.front_default"
+];
+
+// Função para acessar um caminho como "sprites.other.home.front_default"
+const getNested = (obj, path) => {
+  return path.split(".").reduce((o, p) => (o && o[p] !== undefined ? o[p] : null), obj);
+};
+
+// Escolher uma sprite aleatória válida
+const escolherSpriteValida = (pokemonData) => {
+  const caminhosMisturados = [...spritePaths].sort(() => 0.5 - Math.random());
+  for (const path of caminhosMisturados) {
+    const sprite = getNested(pokemonData, path);
+    if (sprite) return sprite;
+  }
+  return null;
+};
+
 const DescribrirPokemon = () => {
   const [selectedGenerations, setSelectedGenerations] = useState(["gen1"]);
   const [pokemonId, setPokemonId] = useState(getRandomIdFromSelectedGens(["gen1"]));
@@ -41,8 +64,17 @@ const DescribrirPokemon = () => {
   const [nivelDica, setNivelDica] = useState(0);
   const [indicesRevelados, setIndicesRevelados] = useState(new Set());
   const [bloqueado, setBloqueado] = useState(false);
+  const [spriteSelecionada, setSpriteSelecionada] = useState(null);
 
   const { data: pokemonAleatorio } = useApi(`/pokemon/${pokemonId}`);
+
+  // Quando carregar um novo Pokémon, escolher uma sprite válida
+  useEffect(() => {
+    if (pokemonAleatorio) {
+      const sprite = escolherSpriteValida(pokemonAleatorio);
+      setSpriteSelecionada(sprite);
+    }
+  }, [pokemonAleatorio]);
 
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
@@ -61,13 +93,12 @@ const DescribrirPokemon = () => {
     setNivelDica(0);
     setIndicesRevelados(new Set());
     setBloqueado(false);
+    setSpriteSelecionada(null);
   };
 
   const gerarDica = (nome, indices) => {
     const letras = nome.split("");
-    return letras
-      .map((letra, idx) => (indices.has(idx) ? letra : "_"))
-      .join(" ");
+    return letras.map((letra, idx) => (indices.has(idx) ? letra : "_")).join(" ");
   };
 
   const obterDicaAtual = () => {
@@ -154,14 +185,27 @@ const DescribrirPokemon = () => {
             {pokemonAleatorio && (
               <>
                 <p><strong>Tentativas:</strong> {tentativas} / 3</p>
-                {correto ? (
-                  <Link to={`/pokemon/${pokemonAleatorio.name}`} className="pokemon_link">
-                    <PokemonImage data={pokemonAleatorio} className="pokemon_img" />
-                  </Link>
+
+                {spriteSelecionada ? (
+                  correto ? (
+                    <Link to={`/pokemon/${pokemonAleatorio.name}`} className="pokemon_link">
+                      <img
+                        src={spriteSelecionada}
+                        alt={pokemonAleatorio.name}
+                        className="pokemon_img"
+                      />
+                    </Link>
+                  ) : (
+                    <div className="pokemon_img_disabled">
+                      <img
+                        src={spriteSelecionada}
+                        alt={pokemonAleatorio.name}
+                        className="pokemon_img sombra"
+                      />
+                    </div>
+                  )
                 ) : (
-                  <div className="pokemon_img_disabled">
-                    <PokemonImage data={pokemonAleatorio} className="pokemon_img sombra" />
-                  </div>
+                  <p>Carregando sprite...</p>
                 )}
 
                 <h3 className="pokemon_name">
